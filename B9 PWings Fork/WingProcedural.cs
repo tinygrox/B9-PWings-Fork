@@ -1865,6 +1865,8 @@ namespace WingProcedural
 
         private void SetupMirroredCntrlSrf()
         {
+            if (assemblyFARUsed) return;
+
             if (this.isCtrlSrf && part.symMethod == SymmetryMethod.Mirror && part.symmetryCounterparts.Count > 0)
             {
                 if (this.part.Modules.Contains<ModuleControlSurface>())
