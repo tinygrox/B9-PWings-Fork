@@ -1864,19 +1864,25 @@ namespace WingProcedural
         }
 
         private void SetupMirroredCntrlSrf()
-		{
+        {
+            if (assemblyFARUsed) return;
+
             if (this.isCtrlSrf && part.symMethod == SymmetryMethod.Mirror && part.symmetryCounterparts.Count > 0)
             {
-                ModuleControlSurface m = this.part.Modules["ModuleControlSurface"] as ModuleControlSurface;
-                m.usesMirrorDeploy = true;
+                if (this.part.Modules.Contains<ModuleControlSurface>())
                 {
-                    Part other = part.symmetryCounterparts[0];
-                    m.mirrorDeploy = this.part.transform.position.x > other.transform.position.x;
-                    m.partDeployInvert = !m.mirrorDeploy;
+                    ModuleControlSurface m = this.part.Modules.GetModule<ModuleControlSurface>();
+                    m.usesMirrorDeploy = true;
+                    {
+                        Part other = part.symmetryCounterparts[0];
+                        m.mirrorDeploy = this.part.transform.position.x > other.transform.position.x;
+                        m.partDeployInvert = !m.mirrorDeploy;
+                    }
                 }
-                
-			}
-		}
+                else
+                    Debug.LogError(String.Format("Part [{0}] named [{1}] is a Control Surface but a ModuleControlSurface wasn't found on its module list!", this.part.ClassName, this.part.partName));
+            }
+        }
 
 		#endregion Mesh Setup and Checking
 
