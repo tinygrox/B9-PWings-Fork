@@ -143,22 +143,21 @@ namespace WingProcedural
             return isCtrlSrf ? incrementCtrl : incrementWing;
 		}
 
-		private static Vector4 sharedBaseLengthLimits = new Vector4(0.125f, 20f, 0.04f, 10f);
-        private static Vector2 sharedBaseThicknessLimits = new Vector2(0.04f, 1f);
-        private static Vector4 sharedBaseWidthRootLimits = new Vector4(0.125f, 20f, 0.04f, 2f);
-        private static Vector4 sharedBaseWidthTipLimits = new Vector4(0.0001f, 20f, 0.04f, 2f);
-        private static Vector4 sharedBaseOffsetLimits = new Vector4(-10f, 10f, -0.5f, 0.5f);
+        private static Vector4 sharedBaseLengthLimits = new Vector4(0.05f, 40f, 0.05f, 20f);
+        private static Vector2 sharedBaseThicknessLimits = new Vector2(0.05f, 4f);
+        private static Vector4 sharedBaseWidthRootLimits = new Vector4(0.05f, 40f, 0.05f, 2f);
+        private static Vector4 sharedBaseWidthTipLimits = new Vector4(0.05f, 40f, 0.05f, 2f);
+        private static Vector4 sharedBaseOffsetLimits = new Vector4(-10f, 10f, -1.5f, 1.5f);
         private static Vector4 sharedEdgeTypeLimits = new Vector4(1f, 4f, 1f, 3f);
-        private static Vector4 sharedEdgeWidthLimits = new Vector4(0f, 1.5f, 0f, 1.5f);
+        private static Vector4 sharedEdgeWidthLimits = new Vector4(0f, 3f, 0f, 3f);
         private static Vector2 sharedMaterialLimits = new Vector2(0f, 4f);
         private static Vector2 sharedColorLimits = new Vector2(0f, 1f);
 
         private static readonly float sharedIncrementColor = 0.01f;
         private static readonly float sharedIncrementColorLarge = 0.10f;
-        private static readonly float sharedIncrementMain = 0.125f;
-        private static readonly float sharedIncrementSmall = 0.05f;
-        private static readonly float sharedIncrementTiny = 0.005f;
-        private static readonly float sharedIncrementInt = 1f;
+        private static readonly float sharedIncrementMain = 0.05f;
+        private static readonly float sharedIncrementSmall = 0.005f;
+        private static readonly float sharedIncrementInt = 0.1f;
 
         #endregion Shared properties / Limits and increments
 
@@ -886,7 +885,6 @@ namespace WingProcedural
 
         public void OnDestroy()
         {
-            EditorAppDestroy();
             GameEvents.onGameSceneLoadRequested.Remove(OnSceneSwitch);
         }
 
@@ -2174,10 +2172,14 @@ namespace WingProcedural
         public double aeroStatMass;
         public double aeroStatConnectionForce;
 
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "MAC")]
         public double aeroStatMeanAerodynamicChord;
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "Semispan")]
         public double aeroStatSemispan;
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "Mid Chord Sweep")]
         public double aeroStatMidChordSweep;
         public Vector3d aeroStatRootMidChordOffsetFromOrigin;
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "Taper Ratio")]
         public double aeroStatTaperRatio;
         public double aeroStatSurfaceArea;
         public double aeroStatAspectRatio;
@@ -2578,37 +2580,6 @@ namespace WingProcedural
             }
         }
 
-        public bool showWingData = false;
-        [KSPEvent(guiActiveEditor = true, guiName = "Show wing data")]
-        public void InfoToggleEvent()
-        {
-            if (isAttached && part.parent != null)
-            {
-                showWingData = !showWingData;
-				Events["InfoToggleEvent"].guiName = showWingData ? "Hide wing data" : "Show wing data";
-
-				// If FAR/NEAR aren't present, toggle Cl/Cd
-				if (!assemblyFARUsed)
-                {
-                    Fields["aeroUICd"].guiActiveEditor = showWingData;
-                    Fields["aeroUICl"].guiActiveEditor = showWingData;
-                    Fields["aeroUIMass"].guiActive = showWingData;
-                }
-                // Toggle the rest of the info values
-                Fields["aeroUICost"].guiActiveEditor = showWingData;
-                Fields["aeroUIMeanAerodynamicChord"].guiActiveEditor = showWingData;
-                Fields["aeroUISemispan"].guiActiveEditor = showWingData;
-                Fields["aeroUIMidChordSweep"].guiActiveEditor = showWingData;
-                Fields["aeroUITaperRatio"].guiActiveEditor = showWingData;
-                Fields["aeroUISurfaceArea"].guiActiveEditor = showWingData;
-                Fields["aeroUIAspectRatio"].guiActiveEditor = showWingData;
-                Fields["aeroStatVolume"].guiActiveEditor = showWingData;
-
-                // Force tweakable window to refresh
-                UpdateWindow();
-            }
-        }
-
         // [KSPEvent (guiActive = true, guiActiveEditor = true, guiName = "Dump interaction data")]
         public void DumpInteractionData()
         {
@@ -2770,7 +2741,6 @@ namespace WingProcedural
                 {
                     EditorLogic.fetch.Unlock("WingProceduralWindow");
                     uiWindowActive = false;
-                    stockButton.SetFalse(false);
                     returnEarly = true;
                 }
                 
@@ -2789,10 +2759,10 @@ namespace WingProcedural
                     DrawField(ref sharedBaseWidthTip, GetIncrementFromType(sharedIncrementMain, sharedIncrementSmall), GetIncrementFromType(1f, 0.24f), GetLimitsFromType(sharedBaseWidthTipLimits), "Width (tip)", uiColorSliderBase, 2, 0);
                     if (isCtrlSrf)
                     {
-                        DrawField(ref sharedBaseOffsetRoot, GetIncrementFromType(sharedIncrementSmall, sharedIncrementTiny), 1f, GetLimitsFromType(sharedBaseOffsetLimits), "Offset (root)", uiColorSliderBase, 3, 0);
+                        DrawField(ref sharedBaseOffsetRoot, GetIncrementFromType(sharedIncrementSmall, sharedIncrementSmall), 1f, GetLimitsFromType(sharedBaseOffsetLimits), "Offset (root)", uiColorSliderBase, 3, 0);
                     }
 
-                    DrawField(ref sharedBaseOffsetTip, GetIncrementFromType(sharedIncrementSmall, sharedIncrementTiny), 1f, GetLimitsFromType(sharedBaseOffsetLimits), "Offset (tip)", uiColorSliderBase, 4, 0);
+                    DrawField(ref sharedBaseOffsetTip, GetIncrementFromType(sharedIncrementSmall, sharedIncrementSmall), 1f, GetLimitsFromType(sharedBaseOffsetLimits), "Offset (tip)", uiColorSliderBase, 4, 0);
                     DrawField(ref sharedBaseThicknessRoot, sharedIncrementSmall, sharedIncrementSmall, sharedBaseThicknessLimits, "Thickness (root)", uiColorSliderBase, 5, 0);
                     DrawField(ref sharedBaseThicknessTip, sharedIncrementSmall, sharedIncrementSmall, sharedBaseThicknessLimits, "Thickness (tip)", uiColorSliderBase, 6, 0);
                 }
@@ -2921,7 +2891,6 @@ namespace WingProcedural
                     if (GUILayout.Button("Close", UIUtility.uiStyleButton, GUILayout.MaxWidth(50f)))
                     {
                         uiWindowActive = false;
-                        stockButton.SetFalse(false);
                         uiAdjustWindow = true;
                         EditorLogic.fetch.Unlock("WingProceduralWindow");
                     }
@@ -3181,7 +3150,6 @@ namespace WingProcedural
                     uiEditModeTimeout = true;
                     uiAdjustWindow = true;
                     uiWindowActive = true;
-                    stockButton.SetTrue(false);
                     InheritanceStatusUpdate();
                 }
             }
@@ -3288,11 +3256,6 @@ namespace WingProcedural
 
         private void UpdateUI()
         {
-            if (stockButton == null)
-            {
-                OnStockButtonSetup();
-            }
-
             if (uiEditModeTimeout && uiInstanceIDTarget == 0)
             {
                 if (HighLogic.CurrentGame.Parameters.CustomParams<WPDebug>().logPropertyWindow)
@@ -3742,52 +3705,6 @@ namespace WingProcedural
         }
 
         #endregion Interfaces
-
-        #region Stock toolbar integration
-
-        public static ApplicationLauncherButton stockButton = null;
-
-        private void OnStockButtonSetup()
-        {
-            stockButton = ApplicationLauncher.Instance.AddModApplication(OnStockButtonClick, OnStockButtonClick, null, null, null, null, ApplicationLauncher.AppScenes.SPH, (Texture)GameDatabase.Instance.GetTexture("B9_Aerospace_ProceduralWings/Plugins/icon_stock", false));
-        }
-
-        public void OnStockButtonClick()
-        {
-            uiWindowActive = !uiWindowActive;
-        }
-
-        public void EditorAppDestroy()
-        {
-            if (!HighLogic.LoadedSceneIsEditor)
-            {
-                return;
-            }
-
-            bool stockButtonCanBeRemoved = true;
-            WingProcedural[] components = FindObjectsOfType<WingProcedural>();
-            if (HighLogic.CurrentGame.Parameters.CustomParams<WPDebug>().logEvents)
-            {
-                DebugLogWithID("OnDestroy", "Invoked, with " + components.Length + " remaining components in the scene");
-            }
-
-            foreach (WingProcedural c in components)
-            {
-				stockButtonCanBeRemoved &= c == null;
-			}
-            
-			if (stockButtonCanBeRemoved)
-            {
-                uiInstanceIDTarget = 0;
-                if (stockButton != null)
-                {
-                    ApplicationLauncher.Instance.RemoveModApplication(stockButton);
-                    stockButton = null;
-                }
-            }
-        }
-
-        #endregion Stock toolbar integration
 
         public T FirstOfTypeOrDefault<T>(PartModuleList moduleList) where T : PartModule
         {
