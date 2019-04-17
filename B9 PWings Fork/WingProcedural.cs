@@ -149,7 +149,7 @@ namespace WingProcedural
         private static Vector4 sharedBaseWidthTipLimits = new Vector4(0.05f, 40f, 0.05f, 2f);
         private static Vector4 sharedBaseOffsetLimits = new Vector4(-10f, 10f, -1.5f, 1.5f);
         private static Vector4 sharedEdgeTypeLimits = new Vector4(1f, 4f, 1f, 3f);
-        private static Vector4 sharedEdgeWidthLimits = new Vector4(0f, 3f, 0f, 3f);
+        private static Vector4 sharedEdgeWidthLimits = new Vector4(0f, 6f, 0f, 6f);
         private static Vector2 sharedMaterialLimits = new Vector2(0f, 4f);
         private static Vector2 sharedColorLimits = new Vector2(0f, 1f);
 
@@ -157,7 +157,7 @@ namespace WingProcedural
         private static readonly float sharedIncrementColorLarge = 0.10f;
         private static readonly float sharedIncrementMain = 0.05f;
         private static readonly float sharedIncrementSmall = 0.005f;
-        private static readonly float sharedIncrementInt = 0.1f;
+        private static readonly float sharedIncrementInt = 1f;
 
         #endregion Shared properties / Limits and increments
 
