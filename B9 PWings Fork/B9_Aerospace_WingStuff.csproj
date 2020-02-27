@@ -59,42 +59,55 @@
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.AnimationModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AudioModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.AudioModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.InputModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.InputModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextCoreModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.TextCoreModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.UI.dll</HintPath>
@@ -102,12 +115,15 @@
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.UIElementsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
       <HintPath>D:\REPOSITORIO\_LocalDev\KSPRefs\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

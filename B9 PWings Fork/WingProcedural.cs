@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using KSP.Localization;
 
 namespace WingProcedural
 {
@@ -10,6 +11,39 @@ namespace WingProcedural
 
     public class WingProcedural : PartModule, IPartCostModifier, IPartSizeModifier, IPartMassModifier
     {
+        // Strings for Localization. Faster than using Localizer.Format() directly.
+        private static readonly string LOC_Length = Localizer.Format("#B9_Aero_Wing_Procedural_Length");
+        private static readonly string LOC_WidthRoot = Localizer.Format("#B9_Aero_Wing_Procedural_WidthRoot");
+        private static readonly string LOC_WidthTip = Localizer.Format("#B9_Aero_Wing_Procedural_WidthTip");
+        private static readonly string LOC_OffsetRoot = Localizer.Format("#B9_Aero_Wing_Procedural_OffsetRoot");
+        private static readonly string LOC_OffsetTip = Localizer.Format("#B9_Aero_Wing_Procedural_OffsetTip");
+        private static readonly string LOC_ThicknessRoot = Localizer.Format("#B9_Aero_Wing_Procedural_ThicknessRoot");
+        private static readonly string LOC_ThicknessTip = Localizer.Format("#B9_Aero_Wing_Procedural_ThicknessTip");
+        private static readonly string LOC_PropertyEditor = Localizer.Format("#B9_Aero_Wing_Procedural_PropertyEditor");
+        private static readonly string LOC_CloseBtn = Localizer.Format("#B9_Aero_Wing_Procedural_CloseBtn");
+        private static readonly string LOC_Base = Localizer.Format("#B9_Aero_Wing_Procedural_String_Base");
+        private static readonly string LOC_EdgeType = Localizer.Format("#B9_Aero_Wing_Procedural_EdgeType");
+        private static readonly string LOC_Edgeleading = Localizer.Format("#B9_Aero_Wing_Procedural_String_Edgeleading");
+        private static readonly string LOC_Edgetrailing = Localizer.Format("#B9_Aero_Wing_Procedural_String_EdgeTrailing");
+        private static readonly string LOC_SurfaceTop = Localizer.Format("#B9_Aero_Wing_Procedural_String_SurfaceTop");
+        private static readonly string LOC_SurfaceBottom = Localizer.Format("#B9_Aero_Wing_Procedural_String_SurfaceBottom");
+        private static readonly string LOC_SurfaceTE = Localizer.Format("#B9_Aero_Wing_Procedural_String_SurfaceTE");
+        private static readonly string LOC_SurfaceLE = Localizer.Format("#B9_Aero_Wing_Procedural_String_SurfaceLE");
+        private static readonly string LOC_Material = Localizer.Format("#B9_Aero_Wing_Procedural_MaterialST");
+        private static readonly string LOC_Opacity = Localizer.Format("#B9_Aero_Wing_Procedural_ColorST_Opacity");
+        private static readonly string LOC_Hue = Localizer.Format("#B9_Aero_Wing_Procedural_String_Hue");
+        private static readonly string LOC_Saturation = Localizer.Format("#B9_Aero_Wing_Procedural_String_Saturation");
+        private static readonly string LOC_Brightness = Localizer.Format("#B9_Aero_Wing_Procedural_String_Brightness");
+        private static readonly string LOC_Hint = Localizer.Format("#B9_Aero_Wing_Procedural_Hint");
+        private static readonly string LOC_Hint2 = Localizer.Format("#B9_Aero_Wing_Procedural_Hint2");
+        private static readonly string LOC_Hint3 = Localizer.Format("#B9_Aero_Wing_Procedural_Hint3");
+        private static readonly string LOC_NextTank = Localizer.Format("#B9_Aero_Wing_Procedural_String_NextTank");
+        private static readonly string LOC_btnDefault = Localizer.Format("#B9_Aero_Wing_Procedural_SaveAsDefault");
+        private static readonly string LOC_btnRestore = Localizer.Format("#B9_Aero_Wing_Procedural_RestoreDefault");
+        private static readonly string LOC_Edges = Localizer.Format("#B9_Aero_Wing_Procedural_String_Edges");
+        private static readonly string LOC_Color = Localizer.Format("#B9_Aero_Wing_Procedural_String_Color");
+        private static readonly string LOC_ExitingEdit = Localizer.Format("#B9_Aero_Wing_Procedural_ExitingEdit");
+        private static readonly string LOC_Invalid = Localizer.Format("#B9_Aero_Wing_Procedural_String_Invalid");
         // Some handy bools
         [KSPField]
         public bool isCtrlSrf = false;
@@ -163,49 +197,49 @@ namespace WingProcedural
 
         #region Shared properties / Base
 
-        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "| Base")]
+        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_FieldGroup_Base")]//| Base
         public static bool sharedFieldGroupBaseStatic = true;
 
         private static readonly string[] sharedFieldGroupBaseArray = new string[] { "sharedBaseLength", "sharedBaseWidthRoot", "sharedBaseWidthTip", "sharedBaseThicknessRoot", "sharedBaseThicknessTip", "sharedBaseOffsetTip" };
         private static readonly string[] sharedFieldGroupBaseArrayCtrl = new string[] { "sharedBaseOffsetRoot" };
 
-        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "Length", guiFormat = "S4")]
+        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_Length", guiFormat = "S4")]//Length
         public float sharedBaseLength = 4f;
 
         public float sharedBaseLengthCached = 4f;
         public static Vector4 sharedBaseLengthDefaults = new Vector4(4f, 1f, 4f, 1f);
 
-        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "Width (root)", guiFormat = "S4")]
+        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_WidthRoot", guiFormat = "S4")]//Width (root)
         public float sharedBaseWidthRoot = 4f;
 
         public float sharedBaseWidthRootCached = 4f;
         public static Vector4 sharedBaseWidthRootDefaults = new Vector4(4f, 0.5f, 4f, 0.5f);
 
-        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "Width (tip)", guiFormat = "S4")]
+        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_WidthTip", guiFormat = "S4")]//Width (tip)
         public float sharedBaseWidthTip = 4f;
 
         public float sharedBaseWidthTipCached = 4f;
         public static Vector4 sharedBaseWidthTipDefaults = new Vector4(4f, 0.5f, 4f, 0.5f);
 
-        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "Offset (root)", guiFormat = "S4")]
+        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_OffsetRoot", guiFormat = "S4")]//Offset (root)
         public float sharedBaseOffsetRoot = 0f;
 
         public float sharedBaseOffsetRootCached = 0f;
         public static Vector4 sharedBaseOffsetRootDefaults = new Vector4(0f, 0f, 0f, 0f);
 
-        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "Offset (tip)", guiFormat = "S4")]
+        [KSPField(isPersistant = true, guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_OffsetTip", guiFormat = "S4")]//Offset (tip)
         public float sharedBaseOffsetTip = 0f;
 
         public float sharedBaseOffsetTipCached = 0f;
         public static Vector4 sharedBaseOffsetTipDefaults = new Vector4(0f, 0f, 0f, 0f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Thickness (root)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ThicknessRoot", guiFormat = "F3")]//Thickness (root)
         public float sharedBaseThicknessRoot = 0.24f;
 
         public float sharedBaseThicknessRootCached = 0.24f;
         public static Vector4 sharedBaseThicknessRootDefaults = new Vector4(0.24f, 0.24f, 0.24f, 0.24f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Thickness (tip)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ThicknessTip", guiFormat = "F3")]//Thickness (tip)
         public float sharedBaseThicknessTip = 0.24f;
 
         public float sharedBaseThicknessTipCached = 0.24f;
@@ -215,24 +249,24 @@ namespace WingProcedural
 
         #region Shared properties / Edge / Leading
 
-        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "| Lead. edge")]
+        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_FieldGroup_EdgeLeading")]//| Lead. edge
         public static bool sharedFieldGroupEdgeLeadingStatic = false;
 
         private static readonly string[] sharedFieldGroupEdgeLeadingArray = new string[] { "sharedEdgeTypeLeading", "sharedEdgeWidthLeadingRoot", "sharedEdgeWidthLeadingTip" };
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Shape", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_EdgeType", guiFormat = "F3")]//Shape
         public float sharedEdgeTypeLeading = 2f;
 
         public float sharedEdgeTypeLeadingCached = 2f;
         public static Vector4 sharedEdgeTypeLeadingDefaults = new Vector4(2f, 1f, 2f, 1f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Width (root)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_WidthRoot", guiFormat = "F3")]//Width (root)
         public float sharedEdgeWidthLeadingRoot = 0.24f;
 
         public float sharedEdgeWidthLeadingRootCached = 0.24f;
         public static Vector4 sharedEdgeWidthLeadingRootDefaults = new Vector4(0.24f, 0.24f, 0.24f, 0.24f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Width (tip)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_WidthTip", guiFormat = "F3")]//Width (tip)
         public float sharedEdgeWidthLeadingTip = 0.24f;
 
         public float sharedEdgeWidthLeadingTipCached = 0.24f;
@@ -242,24 +276,24 @@ namespace WingProcedural
 
         #region Shared properties / Edge / Trailing
 
-        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "| Trail. edge")]
+        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_FieldGroup_EdgeTrailing")]//| Trail. edge
         public static bool sharedFieldGroupEdgeTrailingStatic = false;
 
         private static readonly string[] sharedFieldGroupEdgeTrailingArray = new string[] { "sharedEdgeTypeTrailing", "sharedEdgeWidthTrailingRoot", "sharedEdgeWidthTrailingTip" };
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Shape", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_EdgeType", guiFormat = "F3")]//Shape
         public float sharedEdgeTypeTrailing = 3f;
 
         public float sharedEdgeTypeTrailingCached = 3f;
         public static Vector4 sharedEdgeTypeTrailingDefaults = new Vector4(3f, 2f, 3f, 2f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Width (root)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_WidthRoot", guiFormat = "F3")]//Width (root)
         public float sharedEdgeWidthTrailingRoot = 0.48f;
 
         public float sharedEdgeWidthTrailingRootCached = 0.48f;
         public static Vector4 sharedEdgeWidthTrailingRootDefaults = new Vector4(0.48f, 0.48f, 0.48f, 0.48f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Width (tip)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_WidthTip", guiFormat = "F3")]//Width (tip)
         public float sharedEdgeWidthTrailingTip = 0.48f;
 
         public float sharedEdgeWidthTrailingTipCached = 0.48f;
@@ -269,36 +303,36 @@ namespace WingProcedural
 
         #region Shared properties / Surface / Top
 
-        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "| Material A")]
+        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_FieldGroup_ColorST")]//| Material A
         public static bool sharedFieldGroupColorSTStatic = false;
 
         private static readonly string[] sharedFieldGroupColorSTArray = new string[] { "sharedMaterialST", "sharedColorSTOpacity", "sharedColorSTHue", "sharedColorSTSaturation", "sharedColorSTBrightness" };
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Material", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_MaterialST", guiFormat = "F3")]//Material
         public float sharedMaterialST = 1f;
 
         public float sharedMaterialSTCached = 1f;
         public static Vector4 sharedMaterialSTDefaults = new Vector4(1f, 1f, 1f, 1f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Opacity", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Opacity", guiFormat = "F3")]//Opacity
         public float sharedColorSTOpacity = 0f;
 
         public float sharedColorSTOpacityCached = 0f;
         public static Vector4 sharedColorSTOpacityDefaults = new Vector4(0f, 0f, 0f, 0f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (H)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Hue", guiFormat = "F3")]//Color (H)
         public float sharedColorSTHue = 0.10f;
 
         public float sharedColorSTHueCached = 0.10f;
         public static Vector4 sharedColorSTHueDefaults = new Vector4(0.1f, 0.1f, 0.1f, 0.1f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (S)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Saturation", guiFormat = "F3")]//Color (S)
         public float sharedColorSTSaturation = 0.75f;
 
         public float sharedColorSTSaturationCached = 0.75f;
         public static Vector4 sharedColorSTSaturationDefaults = new Vector4(0.75f, 0.75f, 0.75f, 0.75f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (B)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Brightness", guiFormat = "F3")]//Color (B)
         public float sharedColorSTBrightness = 0.6f;
 
         public float sharedColorSTBrightnessCached = 0.6f;
@@ -308,36 +342,36 @@ namespace WingProcedural
 
         #region Shared properties / Surface / bottom
 
-        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "| Material B")]
+        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_FieldGroup_ColorSB")]//| Material B
         public static bool sharedFieldGroupColorSBStatic = false;
 
         private static readonly string[] sharedFieldGroupColorSBArray = new string[] { "sharedMaterialSB", "sharedColorSBOpacity", "sharedColorSBHue", "sharedColorSBSaturation", "sharedColorSBBrightness" };
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Material", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_MaterialST", guiFormat = "F3")]//Material
         public float sharedMaterialSB = 4f;
 
         public float sharedMaterialSBCached = 4f;
         public static Vector4 sharedMaterialSBDefaults = new Vector4(4f, 4f, 4f, 4f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Opacity", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Opacity", guiFormat = "F3")]//Opacity
         public float sharedColorSBOpacity = 0f;
 
         public float sharedColorSBOpacityCached = 0f;
         public static Vector4 sharedColorSBOpacityDefaults = new Vector4(0f, 0f, 0f, 0f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (H)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Hue", guiFormat = "F3")]//Color (H)
         public float sharedColorSBHue = 0.10f;
 
         public float sharedColorSBHueCached = 0.10f;
         public static Vector4 sharedColorSBHueDefaults = new Vector4(0.1f, 0.1f, 0.1f, 0.1f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (S)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Saturation", guiFormat = "F3")]//Color (S)
         public float sharedColorSBSaturation = 0.75f;
 
         public float sharedColorSBSaturationCached = 0.75f;
         public static Vector4 sharedColorSBSaturationDefaults = new Vector4(0.75f, 0.75f, 0.75f, 0.75f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (B)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Brightness", guiFormat = "F3")]//Color (B)
         public float sharedColorSBBrightness = 0.6f;
 
         public float sharedColorSBBrightnessCached = 0.6f;
@@ -347,36 +381,36 @@ namespace WingProcedural
 
         #region Shared properties / Surface / trailing edge
 
-        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "| Material T")]
+        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_FieldGroup_ColorET")]//| Material T
         public static bool sharedFieldGroupColorETStatic = false;
 
         private static readonly string[] sharedFieldGroupColorETArray = new string[] { "sharedMaterialET", "sharedColorETOpacity", "sharedColorETHue", "sharedColorETSaturation", "sharedColorETBrightness" };
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Material", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_MaterialST", guiFormat = "F3")]//Material
         public float sharedMaterialET = 4f;
 
         public float sharedMaterialETCached = 4f;
         public static Vector4 sharedMaterialETDefaults = new Vector4(4f, 4f, 4f, 4f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Opacity", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Opacity", guiFormat = "F3")]//Opacity
         public float sharedColorETOpacity = 0f;
 
         public float sharedColorETOpacityCached = 0f;
         public static Vector4 sharedColorETOpacityDefaults = new Vector4(0f, 0f, 0f, 0f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (H)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Hue", guiFormat = "F3")]//Color (H)
         public float sharedColorETHue = 0.10f;
 
         public float sharedColorETHueCached = 0.10f;
         public static Vector4 sharedColorETHueDefaults = new Vector4(0.1f, 0.1f, 0.1f, 0.1f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (S)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Saturation", guiFormat = "F3")]//Color (S)
         public float sharedColorETSaturation = 0.75f;
 
         public float sharedColorETSaturationCached = 0.75f;
         public static Vector4 sharedColorETSaturationDefaults = new Vector4(0.75f, 0.75f, 0.75f, 0.75f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (B)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Brightness", guiFormat = "F3")]//Color (B)
         public float sharedColorETBrightness = 0.6f;
 
         public float sharedColorETBrightnessCached = 0.6f;
@@ -386,36 +420,36 @@ namespace WingProcedural
 
         #region Shared properties / Surface / leading edge
 
-        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "| Material L")]
+        [KSPField(guiActiveEditor = false, guiActive = false, guiName = "#B9_Aero_Wing_Procedural_FieldGroup_ColorEL")]//| Material L
         public static bool sharedFieldGroupColorELStatic = false;
 
         private static readonly string[] sharedFieldGroupColorELArray = new string[] { "sharedMaterialEL", "sharedColorELOpacity", "sharedColorELHue", "sharedColorELSaturation", "sharedColorELBrightness" };
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Material", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_MaterialST", guiFormat = "F3")]//Material
         public float sharedMaterialEL = 4f;
 
         public float sharedMaterialELCached = 4f;
         public static Vector4 sharedMaterialELDefaults = new Vector4(4f, 4f, 4f, 4f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Opacity", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Opacity", guiFormat = "F3")]//Opacity
         public float sharedColorELOpacity = 0f;
 
         public float sharedColorELOpacityCached = 0f;
         public static Vector4 sharedColorELOpacityDefaults = new Vector4(0f, 0f, 0f, 0f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (H)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Hue", guiFormat = "F3")]//Color (H)
         public float sharedColorELHue = 0.10f;
 
         public float sharedColorELHueCached = 0.10f;
         public static Vector4 sharedColorELHueDefaults = new Vector4(0.1f, 0.1f, 0.1f, 0.1f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (S)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Saturation", guiFormat = "F3")]//Color (S)
         public float sharedColorELSaturation = 0.75f;
 
         public float sharedColorELSaturationCached = 0.75f;
         public static Vector4 sharedColorELSaturationDefaults = new Vector4(0.75f, 0.75f, 0.75f, 0.75f);
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "Color (B)", guiFormat = "F3")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_ColorST_Brightness", guiFormat = "F3")]//Color (B)
         public float sharedColorELBrightness = 0.6f;
 
 		public float sharedColorELBrightnessCached = 0.6f;
@@ -533,7 +567,7 @@ namespace WingProcedural
 		#region Fuel configuration switching
 
 		// Has to be situated here as this KSPEvent is not correctly added Part.Events otherwise
-		[KSPEvent(guiActive = false, guiActiveEditor = true, guiName = "Next configuration", active = true)]
+		[KSPEvent(guiActive = false, guiActiveEditor = true, guiName = "#B9_Aero_Wing_Procedural_NextConfiguration", active = true)]//Next configuration
         public void NextConfiguration()
         {
             if (HighLogic.CurrentGame.Parameters.CustomParams<WPDebug>().logFuel)
@@ -2172,14 +2206,14 @@ namespace WingProcedural
         public double aeroStatMass;
         public double aeroStatConnectionForce;
 
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "MAC")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "#B9_Aero_Wing_Procedural_MeanAerodynamicChord")]//MAC
         public double aeroStatMeanAerodynamicChord;
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "Semispan")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "#B9_Aero_Wing_Procedural_Semispan")]//Semispan
         public double aeroStatSemispan;
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "Mid Chord Sweep")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "#B9_Aero_Wing_Procedural_MidChordSweep")]//Mid Chord Sweep
         public double aeroStatMidChordSweep;
         public Vector3d aeroStatRootMidChordOffsetFromOrigin;
-        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "Taper Ratio")]
+        [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = true, guiName = "#B9_Aero_Wing_Procedural_TaperRatio")]//Taper Ratio
         public double aeroStatTaperRatio;
         public double aeroStatSurfaceArea;
         public double aeroStatAspectRatio;
@@ -2723,21 +2757,21 @@ namespace WingProcedural
                 
                 if (uiLastFieldName.Length > 0)
                 {
-                    GUILayout.Label("Last: " + uiLastFieldName, UIUtility.uiStyleLabelMedium);
+                    GUILayout.Label("Last: " + uiLastFieldName, UIUtility.uiStyleLabelMedium);//
                 }
                 else
                 {
-                    GUILayout.Label("Property editor", UIUtility.uiStyleLabelMedium);
+                    GUILayout.Label(LOC_PropertyEditor, UIUtility.uiStyleLabelMedium);//"Property editor"
                 }
 
                 if (uiLastFieldTooltip.Length > 0)
                 {
-                    GUILayout.Label(uiLastFieldTooltip + "\n_________________________", UIUtility.uiStyleLabelHint, GUILayout.MaxHeight(44f), GUILayout.MinHeight(44f)); // 58f for four lines
+                    GUILayout.Label(Localizer.Format(uiLastFieldTooltip) + "\n_________________________", UIUtility.uiStyleLabelHint, GUILayout.MaxHeight(44f), GUILayout.MinHeight(44f)); // 58f for four lines
                 }
 
                 GUILayout.EndVertical();
                 
-                if (GUILayout.Button("Close", UIUtility.uiStyleButton, GUILayout.MaxWidth(50f)))
+                if (GUILayout.Button(LOC_CloseBtn, UIUtility.uiStyleButton, GUILayout.MaxWidth(50f)))//"Close"
                 {
                     EditorLogic.fetch.Unlock("WingProceduralWindow");
                     uiWindowActive = false;
@@ -2751,97 +2785,97 @@ namespace WingProcedural
                     return;
                 }
 
-                DrawFieldGroupHeader(ref sharedFieldGroupBaseStatic, "Base");
+                DrawFieldGroupHeader(ref sharedFieldGroupBaseStatic, LOC_Base);//"Base"
                 if (sharedFieldGroupBaseStatic)
                 {
-                    DrawField(ref sharedBaseLength, GetIncrementFromType(sharedIncrementMain, sharedIncrementSmall), GetIncrementFromType(1f, 0.24f), GetLimitsFromType(sharedBaseLengthLimits), "Length", uiColorSliderBase, 0, 0);
-                    DrawField(ref sharedBaseWidthRoot, GetIncrementFromType(sharedIncrementMain, sharedIncrementSmall), GetIncrementFromType(1f, 0.24f), GetLimitsFromType(sharedBaseWidthRootLimits), "Width (root)", uiColorSliderBase, 1, 0);
-                    DrawField(ref sharedBaseWidthTip, GetIncrementFromType(sharedIncrementMain, sharedIncrementSmall), GetIncrementFromType(1f, 0.24f), GetLimitsFromType(sharedBaseWidthTipLimits), "Width (tip)", uiColorSliderBase, 2, 0);
+                    DrawField(ref sharedBaseLength, GetIncrementFromType(sharedIncrementMain, sharedIncrementSmall), GetIncrementFromType(1f, 0.24f), GetLimitsFromType(sharedBaseLengthLimits), LOC_Length, uiColorSliderBase, 0, 0);//"Length"
+                    DrawField(ref sharedBaseWidthRoot, GetIncrementFromType(sharedIncrementMain, sharedIncrementSmall), GetIncrementFromType(1f, 0.24f), GetLimitsFromType(sharedBaseWidthRootLimits), LOC_WidthRoot, uiColorSliderBase, 1, 0);//"Width (root)"
+                    DrawField(ref sharedBaseWidthTip, GetIncrementFromType(sharedIncrementMain, sharedIncrementSmall), GetIncrementFromType(1f, 0.24f), GetLimitsFromType(sharedBaseWidthTipLimits), LOC_WidthTip, uiColorSliderBase, 2, 0);//"Width (tip)"
                     if (isCtrlSrf)
                     {
-                        DrawField(ref sharedBaseOffsetRoot, GetIncrementFromType(sharedIncrementSmall, sharedIncrementSmall), 1f, GetLimitsFromType(sharedBaseOffsetLimits), "Offset (root)", uiColorSliderBase, 3, 0);
+                        DrawField(ref sharedBaseOffsetRoot, GetIncrementFromType(sharedIncrementSmall, sharedIncrementSmall), 1f, GetLimitsFromType(sharedBaseOffsetLimits), LOC_OffsetRoot, uiColorSliderBase, 3, 0);//"Offset (root)"
                     }
 
-                    DrawField(ref sharedBaseOffsetTip, GetIncrementFromType(sharedIncrementSmall, sharedIncrementSmall), 1f, GetLimitsFromType(sharedBaseOffsetLimits), "Offset (tip)", uiColorSliderBase, 4, 0);
-                    DrawField(ref sharedBaseThicknessRoot, sharedIncrementSmall, sharedIncrementSmall, sharedBaseThicknessLimits, "Thickness (root)", uiColorSliderBase, 5, 0);
-                    DrawField(ref sharedBaseThicknessTip, sharedIncrementSmall, sharedIncrementSmall, sharedBaseThicknessLimits, "Thickness (tip)", uiColorSliderBase, 6, 0);
+                    DrawField(ref sharedBaseOffsetTip, GetIncrementFromType(sharedIncrementSmall, sharedIncrementSmall), 1f, GetLimitsFromType(sharedBaseOffsetLimits), LOC_OffsetTip, uiColorSliderBase, 4, 0);//"Offset (tip)"
+                    DrawField(ref sharedBaseThicknessRoot, sharedIncrementSmall, sharedIncrementSmall, sharedBaseThicknessLimits, LOC_ThicknessRoot, uiColorSliderBase, 5, 0);//"Thickness (root)"
+                    DrawField(ref sharedBaseThicknessTip, sharedIncrementSmall, sharedIncrementSmall, sharedBaseThicknessLimits, LOC_ThicknessTip, uiColorSliderBase, 6, 0);//"Thickness (tip)"
                 }
 
                 if (!isCtrlSrf)
                 {
-                    DrawFieldGroupHeader(ref sharedFieldGroupEdgeLeadingStatic, "Edge (leading)");
+                    DrawFieldGroupHeader(ref sharedFieldGroupEdgeLeadingStatic, LOC_Edgeleading);//"Edge (leading)"
                     if (sharedFieldGroupEdgeLeadingStatic)
                     {
-                        DrawField(ref sharedEdgeTypeLeading, sharedIncrementInt, sharedIncrementInt, GetLimitsFromType(sharedEdgeTypeLimits), "Shape", uiColorSliderEdgeL, 7, 2, false);
-                        DrawField(ref sharedEdgeWidthLeadingRoot, sharedIncrementSmall, sharedIncrementSmall, GetLimitsFromType(sharedEdgeWidthLimits), "Width (root)", uiColorSliderEdgeL, 8, 0);
-                        DrawField(ref sharedEdgeWidthLeadingTip, sharedIncrementSmall, sharedIncrementSmall, GetLimitsFromType(sharedEdgeWidthLimits), "Width (tip)", uiColorSliderEdgeL, 9, 0);
+                        DrawField(ref sharedEdgeTypeLeading, sharedIncrementInt, sharedIncrementInt, GetLimitsFromType(sharedEdgeTypeLimits), LOC_EdgeType, uiColorSliderEdgeL, 7, 2, false);//"Shape"
+                        DrawField(ref sharedEdgeWidthLeadingRoot, sharedIncrementSmall, sharedIncrementSmall, GetLimitsFromType(sharedEdgeWidthLimits), LOC_WidthRoot, uiColorSliderEdgeL, 8, 0);//"Width (root)"
+                        DrawField(ref sharedEdgeWidthLeadingTip, sharedIncrementSmall, sharedIncrementSmall, GetLimitsFromType(sharedEdgeWidthLimits), LOC_WidthTip, uiColorSliderEdgeL, 9, 0);//"Width (tip)"
                     }
                 }
 
-                DrawFieldGroupHeader(ref sharedFieldGroupEdgeTrailingStatic, "Edge (trailing)");
+                DrawFieldGroupHeader(ref sharedFieldGroupEdgeTrailingStatic, LOC_Edgetrailing);//"Edge (trailing)"
                 if (sharedFieldGroupEdgeTrailingStatic)
                 {
-                    DrawField(ref sharedEdgeTypeTrailing, sharedIncrementInt, sharedIncrementInt, GetLimitsFromType(sharedEdgeTypeLimits), "Shape", uiColorSliderEdgeT, 10, isCtrlSrf ? 3 : 2, false);
-                    DrawField(ref sharedEdgeWidthTrailingRoot, sharedIncrementSmall, sharedIncrementSmall, GetLimitsFromType(sharedEdgeWidthLimits), "Width (root)", uiColorSliderEdgeT, 11, 0);
-                    DrawField(ref sharedEdgeWidthTrailingTip, sharedIncrementSmall, sharedIncrementSmall, GetLimitsFromType(sharedEdgeWidthLimits), "Width (tip)", uiColorSliderEdgeT, 12, 0);
+                    DrawField(ref sharedEdgeTypeTrailing, sharedIncrementInt, sharedIncrementInt, GetLimitsFromType(sharedEdgeTypeLimits), LOC_EdgeType, uiColorSliderEdgeT, 10, isCtrlSrf ? 3 : 2, false);//"Shape"
+                    DrawField(ref sharedEdgeWidthTrailingRoot, sharedIncrementSmall, sharedIncrementSmall, GetLimitsFromType(sharedEdgeWidthLimits), LOC_WidthRoot, uiColorSliderEdgeT, 11, 0);//"Width (root)"
+                    DrawField(ref sharedEdgeWidthTrailingTip, sharedIncrementSmall, sharedIncrementSmall, GetLimitsFromType(sharedEdgeWidthLimits), LOC_WidthTip, uiColorSliderEdgeT, 12, 0);//"Width (tip)"
                 }
 
-                DrawFieldGroupHeader(ref sharedFieldGroupColorSTStatic, "Surface (top)");
+                DrawFieldGroupHeader(ref sharedFieldGroupColorSTStatic, LOC_SurfaceTop);//"Surface (top)"
                 if (sharedFieldGroupColorSTStatic)
                 {
-                    DrawField(ref sharedMaterialST, sharedIncrementInt, sharedIncrementInt, sharedMaterialLimits, "Material", uiColorSliderColorsST, 13, 1, false);
-                    DrawField(ref sharedColorSTOpacity, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Opacity", uiColorSliderColorsST, 14, 0);
-                    DrawField(ref sharedColorSTHue, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Hue", uiColorSliderColorsST, 15, 0);
-                    DrawField(ref sharedColorSTSaturation, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Saturation", uiColorSliderColorsST, 16, 0);
-                    DrawField(ref sharedColorSTBrightness, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Brightness", uiColorSliderColorsST, 17, 0);
+                    DrawField(ref sharedMaterialST, sharedIncrementInt, sharedIncrementInt, sharedMaterialLimits, LOC_Material, uiColorSliderColorsST, 13, 1, false);//"Material"
+                    DrawField(ref sharedColorSTOpacity, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Opacity, uiColorSliderColorsST, 14, 0);//"Opacity"
+                    DrawField(ref sharedColorSTHue, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Hue, uiColorSliderColorsST, 15, 0);//"Hue"
+                    DrawField(ref sharedColorSTSaturation, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Saturation, uiColorSliderColorsST, 16, 0);//"Saturation"
+                    DrawField(ref sharedColorSTBrightness, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Brightness, uiColorSliderColorsST, 17, 0);//"Brightness"
                 }
 
-                DrawFieldGroupHeader(ref sharedFieldGroupColorSBStatic, "Surface (bottom)");
+                DrawFieldGroupHeader(ref sharedFieldGroupColorSBStatic, LOC_SurfaceBottom);//"Surface (bottom)"
                 if (sharedFieldGroupColorSBStatic)
                 {
-                    DrawField(ref sharedMaterialSB, sharedIncrementInt, sharedIncrementInt, sharedMaterialLimits, "Material", uiColorSliderColorsSB, 13, 1, false);
-                    DrawField(ref sharedColorSBOpacity, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Opacity", uiColorSliderColorsSB, 14, 0);
-                    DrawField(ref sharedColorSBHue, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Hue", uiColorSliderColorsSB, 15, 0);
-                    DrawField(ref sharedColorSBSaturation, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Saturation", uiColorSliderColorsSB, 16, 0);
-                    DrawField(ref sharedColorSBBrightness, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Brightness", uiColorSliderColorsSB, 17, 0);
+                    DrawField(ref sharedMaterialSB, sharedIncrementInt, sharedIncrementInt, sharedMaterialLimits, LOC_Material, uiColorSliderColorsSB, 13, 1, false);//"Material"
+                    DrawField(ref sharedColorSBOpacity, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Opacity, uiColorSliderColorsSB, 14, 0);//"Opacity"
+                    DrawField(ref sharedColorSBHue, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Hue, uiColorSliderColorsSB, 15, 0);//"Hue"
+                    DrawField(ref sharedColorSBSaturation, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Saturation, uiColorSliderColorsSB, 16, 0);//"Saturation"
+                    DrawField(ref sharedColorSBBrightness, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Brightness, uiColorSliderColorsSB, 17, 0);//"Brightness"
                 }
 
-                DrawFieldGroupHeader(ref sharedFieldGroupColorETStatic, "Surface (trailing edge)");
+                DrawFieldGroupHeader(ref sharedFieldGroupColorETStatic, LOC_SurfaceTE);//"Surface (trailing edge)"
                 if (sharedFieldGroupColorETStatic)
                 {
-                    DrawField(ref sharedMaterialET, sharedIncrementInt, sharedIncrementInt, sharedMaterialLimits, "Material", uiColorSliderColorsET, 13, 1, false);
-                    DrawField(ref sharedColorETOpacity, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Opacity", uiColorSliderColorsET, 14, 0);
-                    DrawField(ref sharedColorETHue, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Hue", uiColorSliderColorsET, 15, 0);
-                    DrawField(ref sharedColorETSaturation, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Saturation", uiColorSliderColorsET, 16, 0);
-                    DrawField(ref sharedColorETBrightness, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Brightness", uiColorSliderColorsET, 17, 0);
+                    DrawField(ref sharedMaterialET, sharedIncrementInt, sharedIncrementInt, sharedMaterialLimits, LOC_Material, uiColorSliderColorsET, 13, 1, false);//"Material"
+                    DrawField(ref sharedColorETOpacity, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Opacity, uiColorSliderColorsET, 14, 0);//"Opacity"
+                    DrawField(ref sharedColorETHue, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Hue, uiColorSliderColorsET, 15, 0);//"Hue"
+                    DrawField(ref sharedColorETSaturation, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Saturation, uiColorSliderColorsET, 16, 0);//"Saturation"
+                    DrawField(ref sharedColorETBrightness, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Brightness, uiColorSliderColorsET, 17, 0);//"Brightness"
                 }
 
                 if (!isCtrlSrf)
                 {
-                    DrawFieldGroupHeader(ref sharedFieldGroupColorELStatic, "Surface (leading edge)");
+                    DrawFieldGroupHeader(ref sharedFieldGroupColorELStatic, LOC_SurfaceLE);//"Surface (leading edge)"
                     if (sharedFieldGroupColorELStatic)
                     {
-                        DrawField(ref sharedMaterialEL, sharedIncrementInt, sharedIncrementInt, sharedMaterialLimits, "Material", uiColorSliderColorsEL, 13, 1, false);
-                        DrawField(ref sharedColorELOpacity, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Opacity", uiColorSliderColorsEL, 14, 0);
-                        DrawField(ref sharedColorELHue, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Hue", uiColorSliderColorsEL, 15, 0);
-                        DrawField(ref sharedColorELSaturation, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Saturation", uiColorSliderColorsEL, 16, 0);
-                        DrawField(ref sharedColorELBrightness, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, "Brightness", uiColorSliderColorsEL, 17, 0);
+                        DrawField(ref sharedMaterialEL, sharedIncrementInt, sharedIncrementInt, sharedMaterialLimits, LOC_Material, uiColorSliderColorsEL, 13, 1, false);//"Material"
+                        DrawField(ref sharedColorELOpacity, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Opacity, uiColorSliderColorsEL, 14, 0);//"Opacity"
+                        DrawField(ref sharedColorELHue, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Hue, uiColorSliderColorsEL, 15, 0);//"Hue"
+                        DrawField(ref sharedColorELSaturation, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Saturation, uiColorSliderColorsEL, 16, 0);//"Saturation"
+                        DrawField(ref sharedColorELBrightness, sharedIncrementColor, sharedIncrementColorLarge, sharedColorLimits, LOC_Brightness, uiColorSliderColorsEL, 17, 0);//"Brightness"
                     }
                 }
 
-                GUILayout.Label("_________________________\n\nPress J to exit edit mode\nOptions below allow you to change default values", UIUtility.uiStyleLabelHint);
-                if (CanBeFueled && UseStockFuel && GUILayout.Button(FuelGUIGetConfigDesc() + " | Next tank setup", UIUtility.uiStyleButton))
+                GUILayout.Label("_________________________\n\n" + LOC_Hint, UIUtility.uiStyleLabelHint);//Press J to exit edit mode\nOptions below allow you to change default values
+                if (CanBeFueled && UseStockFuel && GUILayout.Button(FuelGUIGetConfigDesc() + " " + LOC_NextTank, UIUtility.uiStyleButton))//| Next tank setup
                 {
                     NextConfiguration();
                 }
 
                 GUILayout.BeginHorizontal();
-                if (GUILayout.Button("Save as default", UIUtility.uiStyleButton))
+                if (GUILayout.Button(LOC_btnDefault, UIUtility.uiStyleButton))//"Save as default"
                 {
                     ReplaceDefaults();
                 }
 
-                if (GUILayout.Button("Restore default", UIUtility.uiStyleButton))
+                if (GUILayout.Button(LOC_btnRestore, UIUtility.uiStyleButton))//"Restore default"
                 {
                     RestoreDefaults();
                 }
@@ -2849,28 +2883,28 @@ namespace WingProcedural
                 GUILayout.EndHorizontal();
                 if (inheritancePossibleOnShape || inheritancePossibleOnMaterials)
                 {
-                    GUILayout.Label("_________________________\n\nOptions options allow you to match the part properties to it's parent", UIUtility.uiStyleLabelHint);
+                    GUILayout.Label("_________________________\n\n" + LOC_Hint2, UIUtility.uiStyleLabelHint);//Options options allow you to match the part properties to it's parent
                     GUILayout.BeginHorizontal();
                     
                     if (inheritancePossibleOnShape)
                     {
-                        if (GUILayout.Button("Shape", UIUtility.uiStyleButton))
+                        if (GUILayout.Button(LOC_EdgeType, UIUtility.uiStyleButton))//"Shape"
                         {
                             InheritParentValues(0);
                         }
 
-                        if (GUILayout.Button("Base", UIUtility.uiStyleButton))
+                        if (GUILayout.Button(LOC_Base, UIUtility.uiStyleButton))//"Base"
                         {
                             InheritParentValues(1);
                         }
 
-                        if (GUILayout.Button("Edges", UIUtility.uiStyleButton))
+                        if (GUILayout.Button(LOC_Edges, UIUtility.uiStyleButton))//"Edges"
                         {
                             InheritParentValues(2);
                         }
                     }
                     
-                    if (inheritancePossibleOnMaterials && GUILayout.Button("Color", UIUtility.uiStyleButton))
+                    if (inheritancePossibleOnMaterials && GUILayout.Button(LOC_Color, UIUtility.uiStyleButton))//"Color"
                     {
                         InheritParentValues(3);
                     }
@@ -2882,13 +2916,13 @@ namespace WingProcedural
             {
                 if (uiEditModeTimeout)
                 {
-                    GUILayout.Label("Exiting edit mode...\n", UIUtility.uiStyleLabelMedium);
+                    GUILayout.Label(LOC_ExitingEdit + "\n", UIUtility.uiStyleLabelMedium);//Exiting edit mode...
                 }
                 else
                 {
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label("Press J while pointing at a\nprocedural part to edit it", UIUtility.uiStyleLabelHint);
-                    if (GUILayout.Button("Close", UIUtility.uiStyleButton, GUILayout.MaxWidth(50f)))
+                    GUILayout.Label(LOC_Hint3, UIUtility.uiStyleLabelHint);//"Press J while pointing at a\nprocedural part to edit it"
+                    if (GUILayout.Button(LOC_CloseBtn, UIUtility.uiStyleButton, GUILayout.MaxWidth(50f)))//"Close"
                     {
                         uiWindowActive = false;
                         uiAdjustWindow = true;
@@ -3004,7 +3038,7 @@ namespace WingProcedural
         }
 
         private static string uiLastFieldName = "";
-        private static string uiLastFieldTooltip = "Additional info on edited \nproperties is displayed here";
+        private static string uiLastFieldTooltip = "#B9_Aero_Wing_Procedural_Hint4";//"Additional info on edited \nproperties is displayed here"
 
         private string UpdateTooltipText(int fieldID)
         {
@@ -3012,116 +3046,118 @@ namespace WingProcedural
             if (fieldID == 0) // sharedBaseLength))
             {
 				return !isCtrlSrf
-					? "Lateral measurement of the wing, \nalso referred to as semispan"
-					: "Lateral measurement of the control \nsurface at it's root";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text1"//"Lateral measurement of the wing, \nalso referred to as semispan"
+					: "#B9_Aero_Wing_Procedural_Tooltip_Text2";//"Lateral measurement of the control \nsurface at it's root"
 			}
 			else if (fieldID == 1) // sharedBaseWidthRoot))
             {
 				return !isCtrlSrf
-					? "Longitudinal measurement of the wing \nat the root cross section"
-					: "Longitudinal measurement of \nthe root chord";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text3"//"Longitudinal measurement of the wing \nat the root cross section"
+					: "#B9_Aero_Wing_Procedural_Tooltip_Text4";//"Longitudinal measurement of \nthe root chord"
 			}
 			else if (fieldID == 2) // sharedBaseWidthTip))
             {
-				return !isCtrlSrf ? "Longitudinal measurement of the wing \nat the tip cross section" : "Longitudinal measurement of \nthe tip chord";
+				return !isCtrlSrf
+                    ? "#B9_Aero_Wing_Procedural_Tooltip_Text5"//"Longitudinal measurement of the wing \nat the tip cross section"
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text6";//"Longitudinal measurement of \nthe tip chord"
 			}
 			else if (fieldID == 3) // sharedBaseOffsetRoot))
             {
 				return !isCtrlSrf
-					? "This property shouldn't be accessible \non a wing"
-					: "Offset of the trailing edge \nroot corner on the lateral axis";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text7"//This property shouldn't be accessible \non a wing
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text8";//Offset of the trailing edge \nroot corner on the lateral axis
 			}
 			else if (fieldID == 4) // sharedBaseOffsetTip))
             {
 				return !isCtrlSrf
-					? "Distance between midpoints of the cross \nsections on the longitudinal axis"
-					: "Offset of the trailing edge \ntip corner on the lateral axis";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text9"//Distance between midpoints of the cross \nsections on the longitudinal axis
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text10";//Offset of the trailing edge \ntip corner on the lateral axis
 			}
 			else if (fieldID == 5) // sharedBaseThicknessRoot))
             {
 				return !isCtrlSrf
-					? "Thickness at the root cross section \nUsually kept proportional to edge width"
-					: "Thickness at the root cross section \nUsually kept proportional to edge width";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text11"//Thickness at the root cross section \nUsually kept proportional to edge width
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text11";//Thickness at the root cross section \nUsually kept proportional to edge width
 			}
 			else if (fieldID == 6) // sharedBaseThicknessTip))
             {
 				return !isCtrlSrf
-					? "Thickness at the tip cross section \nUsually kept proportional to edge width"
-					: "Thickness at the tip cross section \nUsually kept proportional to edge width";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text12"//Thickness at the tip cross section \nUsually kept proportional to edge width
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text12";//Thickness at the tip cross section \nUsually kept proportional to edge width
 			}
 
 			// Edge descriptions
 			else if (fieldID == 7) // sharedEdgeTypeTrailing))
             {
 				return !isCtrlSrf
-					? "Shape of the trailing edge cross \nsection (round/biconvex/sharp)"
-					: "Shape of the trailing edge cross \nsection (round/biconvex/sharp)";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text13"//Shape of the trailing edge cross \nsection (round/biconvex/sharp)
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text13";//Shape of the trailing edge cross \nsection (round/biconvex/sharp)
 			}
 			else if (fieldID == 8) // sharedEdgeWidthTrailingRoot))
             {
 				return !isCtrlSrf
-					? "Longitudinal measurement of the trailing \nedge cross section at wing root"
-					: "Longitudinal measurement of the trailing \nedge cross section at with root";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text14"//Longitudinal measurement of the trailing \nedge cross section at wing root
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text15";//Longitudinal measurement of the trailing \nedge cross section at with root
 			}
 			else if (fieldID == 9) // sharedEdgeWidthTrailingTip))
             {
 				return !isCtrlSrf
-					? "Longitudinal measurement of the trailing \nedge cross section at wing tip"
-					: "Longitudinal measurement of the trailing \nedge cross section at with tip";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text16"//Longitudinal measurement of the trailing \nedge cross section at wing tip
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text17";//Longitudinal measurement of the trailing \nedge cross section at with tip
 			}
 			else if (fieldID == 10) // sharedEdgeTypeLeading))
             {
 				return !isCtrlSrf
-					? "Shape of the leading edge cross \nsection (round/biconvex/sharp)"
-					: "Shape of the leading edge cross \nsection (round/biconvex/sharp)";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text18"//Shape of the leading edge cross \nsection (round/biconvex/sharp)
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text18";//Shape of the leading edge cross \nsection (round/biconvex/sharp)
 			}
 			else if (fieldID == 11) // sharedEdgeWidthLeadingRoot))
             {
 				return !isCtrlSrf
-					? "Longitudinal measurement of the leading \nedge cross section at wing root"
-					: "Longitudinal measurement of the leading \nedge cross section at wing root";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text19"//Longitudinal measurement of the leading \nedge cross section at wing root
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text19";//Longitudinal measurement of the leading \nedge cross section at wing root
 			}
 			else if (fieldID == 12) // sharedEdgeWidthLeadingTip))
             {
 				return !isCtrlSrf
-					? "Longitudinal measurement of the leading \nedge cross section at with tip"
-					: "Longitudinal measurement of the leading \nedge cross section at with tip";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text20"//Longitudinal measurement of the leading \nedge cross section at with tip
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text20";//Longitudinal measurement of the leading \nedge cross section at with tip
 			}
 
 			// Surface descriptions
 			else if (fieldID == 13)
             {
 				return !isCtrlSrf
-					? "Surface material (uniform fill, plating, \nLRSI/HRSI tiles and so on)"
-					: "Surface material (uniform fill, plating, \nLRSI/HRSI tiles and so on)";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text21"//Surface material (uniform fill, plating, \nLRSI/HRSI tiles and so on)
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text21";//Surface material (uniform fill, plating, \nLRSI/HRSI tiles and so on)
 			}
 			else if (fieldID == 14)
             {
 				return !isCtrlSrf
-					? "Fairly self-explanatory, controls the paint \nopacity: no paint at 0, full coverage at 1"
-					: "Fairly self-explanatory, controls the paint \nopacity: no paint at 0, full coverage at 1";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text22"//Fairly self-explanatory, controls the paint \nopacity: no paint at 0, full coverage at 1
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text22";//Fairly self-explanatory, controls the paint \nopacity: no paint at 0, full coverage at 1
 			}
 			else if (fieldID == 15)
             {
 				return !isCtrlSrf
-					? "Controls the paint hue (HSB axis): \nvalues from zero to one make full circle"
-					: "Controls the paint hue (HSB axis): \nvalues from zero to one make full circle";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text23"//Controls the paint hue (HSB axis): \nvalues from zero to one make full circle
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text23";//Controls the paint hue (HSB axis): \nvalues from zero to one make full circle
 			}
 			else if (fieldID == 16)
             {
 				return !isCtrlSrf
-					? "Controls the paint saturation (HSB axis): \ncolorless at 0, full color at 1"
-					: "Controls the paint saturation (HSB axis): \ncolorless at 0, full color at 1";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text24"//Controls the paint saturation (HSB axis): \ncolorless at 0, full color at 1
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text24";//Controls the paint saturation (HSB axis): \ncolorless at 0, full color at 1
 			}
 			else if (fieldID == 17)
             {
 				return !isCtrlSrf
-					? "Controls the paint brightness (HSB axis): black at 0, white at 1, primary at 0.5"
-					: "Controls the paint brightness (HSB axis): black at 0, white at 1, primary at 0.5";
+					? "#B9_Aero_Wing_Procedural_Tooltip_Text25"//Controls the paint brightness (HSB axis): black at 0, white at 1, primary at 0.5
+                    : "#B9_Aero_Wing_Procedural_Tooltip_Text25";//Controls the paint brightness (HSB axis): black at 0, white at 1, primary at 0.5
 			}
 			else // This should not really happen
             {
-                return "Unknown field\n";
+                return "#B9_Aero_Wing_Procedural_Tooltip_Text26";//Unknown field\n
             }
         }
 
@@ -3380,12 +3416,12 @@ namespace WingProcedural
         {
 			return 
 				!uiEditMode 
-					? "Inactive" 
+					? Localizer.Format("#B9_Aero_Wing_Procedural_WindowTitle1") //"Inactive"
 				: isCtrlSrf 
-					? "Control surface"
+					? Localizer.Format("#B9_Aero_Wing_Procedural_WindowTitle2")//"Control surface"
 				: isWingAsCtrlSrf 
-					? "All-moving control surface" 
-				: "Wing";
+					? Localizer.Format("#B9_Aero_Wing_Procedural_WindowTitle3") //"All-moving control surface"
+				: Localizer.Format("#B9_Aero_Wing_Procedural_WindowTitle4");//"Wing"
 		}
 
 		#endregion Alternative UI/input
@@ -3486,10 +3522,10 @@ namespace WingProcedural
         [KSPField(isPersistant = true)]
         public int fuelSelectedTankSetup = 0;
 
-        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "Added cost")]
+        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_fuelAddedCost")]//Added cost
         public float fuelAddedCost = 0f;
 
-        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "Dry mass")]
+        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "#B9_Aero_Wing_Procedural_DryMassInfo")]//Dry mass
         public float fuelDryMassInfo = 0f;
 
         /// <summary>
@@ -3650,7 +3686,7 @@ namespace WingProcedural
         {
             if (fuelSelectedTankSetup == -1 || StaticWingGlobals.wingTankConfigurations.Count == 0)
             {
-                return "Invalid";
+                return LOC_Invalid;//"Invalid"
             }
             else
             {
