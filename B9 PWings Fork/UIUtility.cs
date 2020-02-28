@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using KSP.Localization;
 
 namespace WingProcedural
 {
@@ -257,10 +258,19 @@ namespace WingProcedural
             return mousepos;
         }
 
+        //Strings for Localization
+        private static readonly string loc_Uniform = Localizer.Format("#B9_Aero_Wing_Procedural_Material_Uniform"); // "Uniform"
+        private static readonly string loc_Standard = Localizer.Format("#B9_Aero_Wing_Procedural_Material_Standard"); // "Standard"
+        private static readonly string loc_Reinforced = Localizer.Format("#B9_Aero_Wing_Procedural_Material_Reinforced"); // "Reinforced"
+        private static readonly string loc_NoEdge = Localizer.Format("#B9_Aero_Wing_Procedural_Material_NoEdge"); // "No Edge"
+        private static readonly string loc_Rounded = Localizer.Format("#B9_Aero_Wing_Procedural_Material_Rounded"); // "Rounded"
+        private static readonly string loc_Biconvex = Localizer.Format("#B9_Aero_Wing_Procedural_Material_Biconvex"); // "Biconvex"
+        private static readonly string loc_Triangular = Localizer.Format("#B9_Aero_Wing_Procedural_Material_Triangular"); // "Triangular"
+
         private static readonly string[][] stringIDs = new string[][] {
-																new string[] { "Uniform", "Standard", "Reinforced", "LRSI", "HRSI" },//
-                                                                new string[] { "", "No Edge", "Rounded", "Biconvex", "Triangular" },//
-                                                                new string[] { "", "No Edge", "Rounded", "Biconvex", "Triangular" }//
+																new string[] { loc_Uniform, loc_Standard, loc_Reinforced, "LRSI", "HRSI" },//"Uniform""Standard""Reinforced"
+                                                                new string[] { "", loc_NoEdge, loc_Rounded, loc_Biconvex, loc_Triangular },//"No Edge""Rounded""Biconvex""Triangular"
+                                                                new string[] { "", loc_NoEdge, loc_Rounded, loc_Biconvex, loc_Triangular }//"No Edge""Rounded""Biconvex""Triangular"
                                                         }; // yup, I'm feeling lazy here...
 
         public static string GetValueTranslation(float value, int type)
